@@ -8,7 +8,7 @@
       function drawMap() {
         var data = google.visualization.arrayToDataTable([
           ['Lat', 'Lon', 'Name'],
-          [{{ gas_station.lon }},{{ gas_station.lat }}, '{{ gas_station.name }}'],
+          [{{ gas_station.lon }},{{ gas_station.lat }}, '{{ gas_station.name }} {{ gas_prices_js }}'],
         ]);
 
         var map = new google.visualization.Map(document.getElementById('map_div'));
@@ -23,4 +23,14 @@
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
     <div id="map_div" style="width: 400px; height: 300px"></div>
+
+    {% if gas_prices %}
+        <ul>
+        {% for gas_price in gas_prices %}
+            <li>{{ gas_price.date|date:"D d M Y" }} - {{ gas_price.price }} Kč</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No gas prices are available.</p>
+    {% endif %}
 {% endblock %}
