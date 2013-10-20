@@ -8,3 +8,12 @@ class GasStation(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class GasPrice(models.Model):
+    station = models.ForeignKey(GasStation)
+    date = models.DateTimeField('date published')
+    price = models.FloatField()
+
+    def __unicode__(self):
+        return str(self.price) + '@' + str(self.date)

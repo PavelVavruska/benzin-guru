@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["map"]});
+      google.setOnLoadCallback(drawMap);
+      function drawMap() {
+        var data = google.visualization.arrayToDataTable([
+          ['Lat', 'Lon', 'Name'],
+          {% if gas_station_list %}
+              {% for gas_station in gas_station_list %}
+                  [{{ gas_station.lon }},{{ gas_station.lat }}, '{{ gas_station.name }}'],
+              {% endfor %}
+          {% else %}
+              [0, 0, 'No gas stations are available.'],
+          {% endif %}
+        ]);
+
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(data, {showTip: true});
+      }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h2>There are {{ gas_station_list.count }} gas stations!</h2>
+    {% if gas_station_list %}
+        <div id="map_div" style="width: 400px; height: 300px"></div>
+        <ul>
+        {% for gas_station in gas_station_list %}
+            <li><a href="{% url 'detail' gas_station.id %}">{{ gas_station.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No gas stations are available.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["map"]});
+      google.setOnLoadCallback(drawMap);
+      function drawMap() {
+        var data = google.visualization.arrayToDataTable([
+          ['Lat', 'Lon', 'Name'],
+          [{{ gas_station.lon }},{{ gas_station.lat }}, '{{ gas_station.name }}'],
+        ]);
+
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(data, {showTip: true});
+      }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ gas_station.name }}</h1>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <div id="map_div" style="width: 400px; height: 300px"></div>
+{% endblock %}

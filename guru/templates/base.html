@@ -3,14 +3,14 @@
 <head>
     <link rel="stylesheet" href="style.css" />
     <title>{% block title %}Fuel site{% endblock %}</title>
+    {% block scripts %}{% endblock %}
 </head>
 
 <body>
     <div id="sidebar">
         {% block sidebar %}
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/Fuel/">Fuel</a></li>
+            <li><a href="/guru/">Benzin-guru home page</a></li>
         </ul>
         {% endblock %}
     </div>
