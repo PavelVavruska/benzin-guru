@@ -1,5 +1,5 @@
 from django.db import models
-from django.forms import ModelForm
+
 
 class GasStation(models.Model):
     name = models.CharField(max_length=200)
@@ -19,7 +19,3 @@ class GasPrice(models.Model):
         return str(self.price) + '@' + str(self.date)
 
 
-class GasPriceForm(ModelForm):
-    class Meta:
-        model = GasPrice
-        fields = ['station', 'date', 'price']
