@@ -24,6 +24,13 @@
 {% endblock %}
 
 {% block content %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <h2>There are {{ gas_station_list.count }} gas stations!</h2>
     {% if gas_station_list %}
         <div id="map_div" style="width: 400px; height: 300px"></div>

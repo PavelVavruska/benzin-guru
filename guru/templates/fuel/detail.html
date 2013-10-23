@@ -33,4 +33,22 @@
     {% else %}
         <p>No gas prices are available.</p>
     {% endif %}
+
+    {% if user.is_authenticated %}
+        <p>Update prices for this gas station. Help our community!</p>
+
+        {% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+        {% endif %}
+
+        <form action="{% url 'detail' gas_station.id %}" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" />
+        </form>
+
+    {% else %}
+        <p>Login in order to update prices for this gas station. Help our community!</p>
+    {% endif %}
 {% endblock %}
